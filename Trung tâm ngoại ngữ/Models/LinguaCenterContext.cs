@@ -17,6 +17,8 @@ public partial class LinguaCenterContext : DbContext
 
     public virtual DbSet<TbAccount> TbAccounts { get; set; }
 
+    public virtual DbSet<TbEvent> TbEvents { get; set; }
+
     public virtual DbSet<TbMenu> TbMenus { get; set; }
 
     public virtual DbSet<TbRole> TbRoles { get; set; }
@@ -44,6 +46,18 @@ public partial class LinguaCenterContext : DbContext
             entity.Property(e => e.Password).HasMaxLength(50);
             entity.Property(e => e.Phone).HasMaxLength(50);
             entity.Property(e => e.Username).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<TbEvent>(entity =>
+        {
+            entity.HasKey(e => e.EventId).HasName("PK__tb_Event__7944C810115E3D6A");
+
+            entity.ToTable("tb_Events");
+
+            entity.Property(e => e.EventDate).HasColumnType("datetime");
+            entity.Property(e => e.Image).HasMaxLength(255);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.Title).HasMaxLength(255);
         });
 
         modelBuilder.Entity<TbMenu>(entity =>

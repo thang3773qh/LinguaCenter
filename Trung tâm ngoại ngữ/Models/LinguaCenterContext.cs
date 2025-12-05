@@ -25,11 +25,15 @@ public partial class LinguaCenterContext : DbContext
 
     public virtual DbSet<TbEvent> TbEvents { get; set; }
 
+    public virtual DbSet<TbFeedback> TbFeedbacks { get; set; }
+
     public virtual DbSet<TbLesson> TbLessons { get; set; }
 
     public virtual DbSet<TbMenu> TbMenus { get; set; }
 
     public virtual DbSet<TbModule> TbModules { get; set; }
+
+    public virtual DbSet<TbOrder> TbOrders { get; set; }
 
     public virtual DbSet<TbRole> TbRoles { get; set; }
 
@@ -66,9 +70,6 @@ public partial class LinguaCenterContext : DbContext
 
             entity.Property(e => e.Alias)
                 .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.Image)
-                .HasMaxLength(500)
                 .IsUnicode(false);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Name).HasMaxLength(255);
@@ -123,14 +124,29 @@ public partial class LinguaCenterContext : DbContext
 
         modelBuilder.Entity<TbEvent>(entity =>
         {
-            entity.HasKey(e => e.EventId).HasName("PK__tb_Event__7944C810115E3D6A");
+            entity.HasKey(e => e.EventId).HasName("PK__tb_Event__7944C8102F8886AD");
 
             entity.ToTable("tb_Events");
 
             entity.Property(e => e.EventDate).HasColumnType("datetime");
             entity.Property(e => e.Image).HasMaxLength(255);
-            entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Title).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<TbFeedback>(entity =>
+        {
+            entity.HasKey(e => e.FeedbackId).HasName("PK__tb_Feedb__6A4BEDD68A879F21");
+
+            entity.ToTable("tb_Feedback");
+
+            entity.Property(e => e.AvatarPath).HasMaxLength(500);
+            entity.Property(e => e.CreateDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.FullName).HasMaxLength(255);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.JobTitle).HasMaxLength(255);
+            entity.Property(e => e.Rating).HasDefaultValue(5);
         });
 
         modelBuilder.Entity<TbLesson>(entity =>
@@ -177,6 +193,30 @@ public partial class LinguaCenterContext : DbContext
                 .HasForeignKey(d => d.CourseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Modules_Course");
+        });
+
+        modelBuilder.Entity<TbOrder>(entity =>
+        {
+            entity.HasKey(e => e.OrderId).HasName("PK__tb_Order__C3905BCF4533E32D");
+
+            entity.ToTable("tb_Order");
+
+            entity.Property(e => e.CreateDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.CustomerName).HasMaxLength(255);
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Phone)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.TbOrders)
+                .HasForeignKey(d => d.CourseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_tb_Order_tb_Courses");
         });
 
         modelBuilder.Entity<TbRole>(entity =>

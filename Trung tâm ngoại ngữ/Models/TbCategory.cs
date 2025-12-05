@@ -11,8 +11,6 @@ public partial class TbCategory
 
     public string? Alias { get; set; }
 
-    public string? Image { get; set; }
-
     public bool IsActive { get; set; }
 
     public virtual ICollection<TbCourse> TbCourses { get; set; } = new List<TbCourse>();

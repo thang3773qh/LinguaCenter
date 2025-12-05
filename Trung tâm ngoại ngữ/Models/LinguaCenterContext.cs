@@ -123,13 +123,12 @@ public partial class LinguaCenterContext : DbContext
 
         modelBuilder.Entity<TbEvent>(entity =>
         {
-            entity.HasKey(e => e.EventId).HasName("PK__tb_Event__7944C810115E3D6A");
+            entity.HasKey(e => e.EventId).HasName("PK__tb_Event__7944C8102F8886AD");
 
             entity.ToTable("tb_Events");
 
             entity.Property(e => e.EventDate).HasColumnType("datetime");
             entity.Property(e => e.Image).HasMaxLength(255);
-            entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Title).HasMaxLength(255);
         });
 

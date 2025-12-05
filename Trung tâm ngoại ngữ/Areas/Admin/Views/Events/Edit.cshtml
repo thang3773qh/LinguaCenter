@@ -1,7 +1,7 @@
-﻿@model LinguaCenter.Models.TbMenu
+﻿@model LinguaCenter.Models.TbEvent
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,11 +9,12 @@
     <div class="col-xl">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Thêm mới menu</h5>
+                <h5 class="mb-0">Sửa sự kiện</h5>
                 <small class="text-body float-end"><a asp-action="Index">Quay lại danh sách</a></small>
             </div>
             <div class="card-body">
-                <form asp-action="Create">
+                <form asp-action="Edit">
+                    <input type="hidden" asp-for="EventId" />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group mb-6">
                         <label asp-for="Title" class="control-label">Tiêu đề</label>
@@ -21,9 +22,9 @@
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-6">
-                        <label asp-for="Alias" class="control-label">Alias</label>
-                        <input asp-for="Alias" class="form-control" />
-                        <span asp-validation-for="Alias" class="text-danger"></span>
+                        <label asp-for="EventDate" class="control-label">Ngày</label>
+                        <input asp-for="EventDate" class="form-control" />
+                        <span asp-validation-for="EventDate" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-6">
                         <label asp-for="Description" class="control-label">Mô tả</label>
@@ -31,19 +32,9 @@
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-6">
-                        <label asp-for="Levels" class="control-label">Mức</label>
-                        <input asp-for="Levels" class="form-control" />
-                        <span asp-validation-for="Levels" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mb-6">
-                        <label asp-for="ParentId" class="control-label">Menu cha</label>
-                        <input asp-for="ParentId" class="form-control" />
-                        <span asp-validation-for="ParentId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mb-6">
-                        <label asp-for="Position" class="control-label">Vị trí</label>
-                        <input asp-for="Position" class="form-control" />
-                        <span asp-validation-for="Position" class="text-danger"></span>
+                        <label asp-for="Image" class="control-label">Hình ảnh</label>
+                        <input asp-for="Image" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
                     </div>
                     <div class="form-group form-check mb-6">
                         <label class="form-check-label">
@@ -51,7 +42,7 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Tạo" class="btn btn-primary" />
+                        <input type="submit" value="Sửa" class="btn btn-primary" />
                     </div>
                 </form>
             </div>
